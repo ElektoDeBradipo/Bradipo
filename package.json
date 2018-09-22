@@ -4,14 +4,31 @@
   "repository": "https://github.com/ElektoDeBradipo/bradipo.git",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "apollo-boost": "^0.1.10",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
+    "grommet": "^1.11.0",
     "react": "^16.3.0",
+    "react-apollo": "^2.1.9",
     "react-dom": "^16.3.0",
-    "react-scripts": "1.1.1"
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.1",
+    "react-social-login": "^3.4.2",
+    "react-social-login-buttons": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "standard && react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "standard": "^11.0.1"
+  },
+  "standard": {
+    "envs": [
+      "browser",
+      "jest"
+    ]
   }
 }

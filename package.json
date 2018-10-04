@@ -1,17 +1,31 @@
 {
   "name": "bradipo",
   "version": "0.1.0",
-  "repository": "https://github.com/ElektoDeBradipo/bradipo.git",
-  "license": "GPL-3.0-or-later",
+  "private": true,
   "dependencies": {
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "react-scripts": "1.1.1"
+    "apollo-boost": "^0.1.16",
+    "flow-bin": "^0.82.0",
+    "graphql": "^14.0.2",
+    "react": "^16.5.2",
+    "react-apollo": "^2.2.4",
+    "react-dom": "^16.5.2",
+    "react-scripts": "2.0.4",
+    "styled-components": "^3.4.9"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "flow": "flow"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

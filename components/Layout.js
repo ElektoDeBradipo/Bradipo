@@ -10,6 +10,11 @@ const Layout = props => (
   <div style={layoutStyle}>
     <Header />
     {props.children}
+    <style jsx global>{`
+      body {
+        font-family: Roboto, Arial, sans-serif;
+      }
+    `}</style>
   </div>
 );
 

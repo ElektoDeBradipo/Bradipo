@@ -28,14 +28,11 @@ class Signup extends React.Component{
             password: ''
     };
 
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
 
-      componentDidMount(){
-         // window.localStorage.setItem("elektoAuthToken", "")
-      }
+      componentDidMount(){}
     
       handleChange(event){
           this.setState({
@@ -70,6 +67,7 @@ class Signup extends React.Component{
     
       render() {
         return (
+            
             <Mutation mutation={SignupQuery}>
                 {
                     (signup, {data, error, loading}) => {
@@ -78,22 +76,25 @@ class Signup extends React.Component{
                             console.log({content: data.signup.token})
                             window.localStorage.setItem("elektoAuthToken",data.signup.token)
                         }
+                       return(
+                      <div>
+                        <h2>SignUp</h2>
 
-                 
-
-                       return(<form onSubmit={event => this.handleSubmit(event, signup)}>
-                       <FieldInput   title="firstname" value={this.state.firstname} onChange={this.handleChange}></FieldInput>
+                       <form onSubmit={event => this.handleSubmit(event, signup)}>
+                       <FieldInput  title="firstname" value={this.state.firstname} onChange={this.handleChange}></FieldInput>
            
-                       <FieldInput   title="lastname" value={this.state.lastname} onChange={this.handleChange}></FieldInput>
+                       <FieldInput  title="lastname" value={this.state.lastname} onChange={this.handleChange}></FieldInput>
            
-                       <FieldInput   title="nickname" value={this.state.name} onChange={this.handleChange}></FieldInput>
+                       <FieldInput  title="nickname" value={this.state.name} onChange={this.handleChange}></FieldInput>
            
                        <FieldInput warning={this.testEmail(this.state.email)} title="email" type="email" value={this.state.email} onChange={this.handleChange}></FieldInput>
            
                        <FieldInput warning={this.testPassword(this.state.password)} title="password" type="password" value={this.state.password} onChange={this.handleChange}></FieldInput>
            
                        <Button type="submit" primary color="#00cc00">SignUp</Button>
-                     </form>) 
+                     </form>
+                      </div>
+) 
                     }
                       
                 }

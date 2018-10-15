@@ -30,9 +30,11 @@ class Signup extends React.Component{
 
 
         this.handleChange = this.handleChange.bind(this);
-
-
         this.handleSubmit = this.handleSubmit.bind(this);
+      }
+
+      componentDidMount(){
+         // window.localStorage.setItem("elektoAuthToken", "")
       }
     
       handleChange(event){
@@ -72,7 +74,12 @@ class Signup extends React.Component{
                 {
                     (signup, {data, error, loading}) => {
 
-                        console.log(data)
+                        if(data) {
+                            console.log({content: data.signup.token})
+                            window.localStorage.setItem("elektoAuthToken",data.signup.token)
+                        }
+
+                 
 
                        return(<form onSubmit={event => this.handleSubmit(event, signup)}>
                        <FieldInput   title="firstname" value={this.state.firstname} onChange={this.handleChange}></FieldInput>

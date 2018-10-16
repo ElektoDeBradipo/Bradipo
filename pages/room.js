@@ -17,12 +17,17 @@ class RoomPage extends React.Component {
     const roomId = this.props.router.query.id;
     return (
       <Layout>
-        <RoomHeader
-          roomId={roomId}
-          onModeChange={this.handleModeChange.bind(this)}
-          mode={this.state.mode}
-        />
-        <RoomMovieList roomId={roomId} mode={this.state.mode} />
+        {" "}
+        {roomId && (
+          <>
+            <RoomHeader
+              roomId={roomId}
+              onModeChange={this.handleModeChange.bind(this)}
+              mode={this.state.mode}
+            />
+            <RoomMovieList roomId={roomId} mode={this.state.mode} />{" "}
+          </>
+        )}
       </Layout>
     );
   }

@@ -4,6 +4,7 @@ import withApolloClient from "../lib/with-apollo-client";
 import { ApolloProvider } from "react-apollo";
 
 import "antd/dist/antd.css";
+import "../style.css";
 
 class MyApp extends App {
   render() {

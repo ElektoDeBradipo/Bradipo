@@ -1,12 +1,12 @@
-import { Query } from "react-apollo";
+import { List, Skeleton } from "antd";
 import gql from "graphql-tag";
-import { List, Avatar, Icon } from "antd";
+import { Query } from "react-apollo";
 
 export const roomMoviesQuery = gql`
-  query roomMovies($id: ID!) {
+  query roomMovies($id: ID!, $mode: MovieModeInput!) {
     room(id: $id) {
       id
-      movies(mode: TRENDING) {
+      movies(mode: $mode) {
         id
         title
         overview
@@ -16,17 +16,29 @@ export const roomMoviesQuery = gql`
   }
 `;
 
-export default ({ roomId }) => (
-  <Query query={roomMoviesQuery} variables={{ id: roomId }}>
+export default ({ roomId, mode }) => (
+  <Query query={roomMoviesQuery} variables={{ id: roomId, mode }}>
     {({ loading, error, data }) => {
       if (error) return <div>Error</div>;
-      if (loading) return <div>Loading</div>;
+      if (loading)
+        return (
+          <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={new Array(10)}
+            renderItem={(item, index) => (
+              <List.Item key={index}>
+                <Skeleton loading={true} active />
+              </List.Item>
+            )}
+          />
+        );
       return (
         <List
           itemLayout="vertical"
           size="large"
           dataSource={data.room.movies}
-          renderItem={item => (
+          renderItem={(item, index) => (
             <List.Item
               key={item.title}
               extra={
@@ -38,10 +50,11 @@ export default ({ roomId }) => (
               }
             >
               <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
+                // avatar={<Avatar src={item.avatar} />}
                 title={item.title}
                 description={item.overview}
               />
+              {/* <h2>{index + 1}</h2> */}
               {item.content}
             </List.Item>
           )}

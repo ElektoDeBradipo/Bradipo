@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Avatar, Badge, Button } from "antd";
 import Link from "next/link";
 import { withRouter } from "next/router";
 
@@ -23,6 +23,9 @@ const Header = withRouter(({ router }) => (
     <h2 style={{ color: "#fff", float: "left", margin: 0, marginRight: 25 }}>
       Elekto De Bradipo
     </h2>
+    <div style={{ float: "right" }}>
+      <Avatar icon="user" />
+    </div>
     <Menu
       theme="dark"
       mode="horizontal"

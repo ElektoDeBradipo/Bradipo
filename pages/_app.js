@@ -1,17 +1,16 @@
+import "antd/dist/antd.css";
 import App, { Container } from "next/app";
 import React from "react";
-import withApolloClient from "../lib/with-apollo-client";
 import { ApolloProvider } from "react-apollo";
-
-import "antd/dist/antd.css";
+import withApollo from "../lib/with-apollo";
 import "../style.css";
 
 class MyApp extends App {
   render() {
-    const { Component, pageProps, apolloClient } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
       <Container>
-        <ApolloProvider client={apolloClient}>
+        <ApolloProvider client={apollo}>
           <Component {...pageProps} />
         </ApolloProvider>
       </Container>
@@ -19,4 +18,4 @@ class MyApp extends App {
   }
 }
 
-export default withApolloClient(MyApp);
+export default withApollo(MyApp);

@@ -1,7 +1,7 @@
 import { withRouter } from "next/router";
-import Layout from "../components/layout/Layout";
-import RoomHeader from "../components/room/RoomHeader";
-import RoomMovieList from "../components/room/RoomMovieList";
+import Layout from "../../components/layout/Layout";
+import RoomHeader from "../../components/room/RoomHeader";
+import RoomMovieList from "../../components/room/RoomMovieList";
 
 class RoomPage extends React.Component {
   constructor(props) {

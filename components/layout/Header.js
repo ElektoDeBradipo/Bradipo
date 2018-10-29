@@ -9,7 +9,7 @@ const navItems = [
   },
   {
     label: "Rooms",
-    route: "/room"
+    route: "/rooms"
   }
 ];
 

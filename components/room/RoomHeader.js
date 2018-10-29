@@ -19,7 +19,7 @@ const RoomHeader = ({ roomId, onModeChange, mode }) => (
         return (
           <div style={{ width: 400, margin: "auto" }}>
             <Skeleton paragraph={false} loading={loading}>
-              <h1>{data.room.name}</h1>
+              <h1>{!loading && data.room.name}</h1>
             </Skeleton>
           </div>
         );

@@ -1,7 +1,10 @@
-import { Drawer, Skeleton, List } from "antd";
+import { Drawer, Skeleton, Input, Button } from "antd";
+import gql from "graphql-tag";
 import React from "react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import FriendList from "./FriendList";
+import MutationWrapper from "../MutationWrapper";
+import FriendAddForm from "./FriendAddForm";
 
 export const userProfileGql = gql`
   query UserProfile {
@@ -11,8 +14,27 @@ export const userProfileGql = gql`
       firstName
       lastName
       friends {
+        id
         nickname
       }
+    }
+  }
+`;
+
+export const removeFriendGql = gql`
+  mutation RemoveFriend($friendId: ID!) {
+    friendRemove(friendId: $friendId) {
+      id
+      nickname
+    }
+  }
+`;
+
+export const addFriendGql = gql`
+  mutation AddFriend($friendId: ID!) {
+    friendAdd(friendId: $friendId) {
+      id
+      nickname
     }
   }
 `;
@@ -65,30 +87,22 @@ export default class UserProfile extends React.Component {
                   </Skeleton>
                 </div>
               }
-              //   width={400}
+              width={400}
               placement="right"
               closable={false}
               onClose={this.onClose}
               visible={this.state.visible}
             >
               <h4>Friends</h4>
-              <List
-                itemLayout="horizontal"
-                loading={loading}
-                dataSource={error ? [] : data.me.friends}
-                renderItem={friend => (
-                  <List.Item>
-                    <List.Item.Meta
-                      //   avatar={
-                      //     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                      //   }
-                      title={friend.nickname}
-                      //   description=""
-                    />
-                  </List.Item>
-                )}
-              />
-              ,
+              <MutationWrapper
+                mutation={removeFriendGql}
+                refetchQueries={() => [{ query: userProfileGql }]}
+              >
+                <FriendList
+                  loading={loading}
+                  friends={!error && !loading && data.me.friends}
+                />
+              </MutationWrapper>
             </Drawer>
           )}
         </Query>

@@ -5,6 +5,7 @@ import { Query } from "react-apollo";
 const userFriendsGql = gql`
   query userFriends {
     me {
+      id
       friends {
         id
         nickname
@@ -54,11 +55,13 @@ const RoomCreateForm = ({ form, mutation }) => (
                 loading ? <Spin size="small" /> : error ? "Error" : null
               }
             >
-              {data.me.friends.map(friend => (
-                <Select.Option key={friend.id} value={friend.id}>
-                  {friend.nickname}
-                </Select.Option>
-              ))}
+              {!loading &&
+                !error &&
+                data.me.friends.map(friend => (
+                  <Select.Option key={friend.id} value={friend.id}>
+                    {friend.nickname}
+                  </Select.Option>
+                ))}
             </Select>
           )}
         </Form.Item>

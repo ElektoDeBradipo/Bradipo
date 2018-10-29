@@ -1,6 +1,7 @@
 import { Layout, Menu, Avatar, Badge, Button } from "antd";
 import Link from "next/link";
 import { withRouter } from "next/router";
+import UserProfile from "./UserProfile";
 
 const navItems = [
   {
@@ -23,9 +24,14 @@ const Header = withRouter(({ router }) => (
     <h2 style={{ color: "#fff", float: "left", margin: 0, marginRight: 25 }}>
       Elekto De Bradipo
     </h2>
-    <div style={{ float: "right" }}>
-      <Avatar icon="user" />
-    </div>
+    <UserProfile>
+      {({ toggle }) => (
+        <div style={{ float: "right" }}>
+          <Avatar className="grow clickable" icon="user" onClick={toggle} />
+        </div>
+      )}
+    </UserProfile>
+
     <Menu
       theme="dark"
       mode="horizontal"

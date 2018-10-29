@@ -1,8 +1,8 @@
 import Router from "next/router";
 
-const MutationRedirection = ({ mutation }) => {
+const MutationRedirection = ({ mutation, url, as, option }) => {
   if (mutation.data && !mutation.error) {
-    Router.push("/");
+    Router.push(url || "/", as, option);
   }
   return null;
 };

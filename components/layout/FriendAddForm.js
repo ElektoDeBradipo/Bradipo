@@ -22,7 +22,8 @@ class FriendAddForm extends React.Component {
     this.setState({ data: [], fetching: true });
     const response = await client.query({
       query: USER_SEARCH,
-      variables: { search }
+      variables: { search },
+      fetchPolicy: "no-cache"
     });
 
     this.setState({ data: response.data.users, fetching: false });

@@ -103,6 +103,12 @@ export default class UserProfile extends React.Component {
                   friends={!error && !loading && data.me.friends}
                 />
               </MutationWrapper>
+              <MutationWrapper
+                mutation={addFriendGql}
+                refetchQueries={() => [{ query: userProfileGql }]}
+              >
+                <FriendAddForm />
+              </MutationWrapper>
             </Drawer>
           )}
         </Query>

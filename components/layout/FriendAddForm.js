@@ -1,32 +1,86 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Select, Spin } from "antd";
+import { ApolloConsumer } from "react-apollo";
+import gql from "graphql-tag";
 
-const submitHandler = (event, form, mutation) => {
-  event.preventDefault();
-  form.validateFields((err, values) => {
-    if (!err) mutation.trigger({ variables: values });
-  });
-};
+const USER_SEARCH = gql`
+  query UserSearch($search: String) {
+    users(search: $search) {
+      id
+      nickname
+    }
+  }
+`;
 
-const FriendAddForm = ({ form, mutation }) => (
-  <Form
-    layout="inline"
-    onSubmit={event => submitHandler(event, form, mutation)}
-  >
-    <Form.Item>
-      {form.getFieldDecorator("login.email", {
-        rules: [
-          { required: true, message: "Please input your email" },
-          { type: "email" }
-        ]
-      })(<Input id="login.email" type="email" placeholder="email" />)}
-    </Form.Item>
+class FriendAddForm extends React.Component {
+  state = {
+    data: [],
+    value: {},
+    fetching: false
+  };
 
-    <Form.Item>
-      <Button type="primary" htmlType="submit" loading={mutation.loading}>
-        Add
-      </Button>
-    </Form.Item>
-  </Form>
-);
+  fetchUser = client => async search => {
+    this.setState({ data: [], fetching: true });
+    const response = await client.query({
+      query: USER_SEARCH,
+      variables: { search }
+    });
+
+    this.setState({ data: response.data.users, fetching: false });
+  };
+
+  handleChange = value => {
+    const user = this.state.data.find(x => x.id == value);
+    this.setState({
+      value: user || {},
+      data: [],
+      fetching: false
+    });
+  };
+
+  addFriend = () => {
+    const { mutation } = this.props;
+    const { value } = this.state;
+    if (value && value.id) {
+      mutation.trigger({ variables: { friendId: value.id } });
+    }
+  };
+
+  render() {
+    const { mutation } = this.props;
+    const { fetching, data, value } = this.state;
+    return (
+      <ApolloConsumer>
+        {client => (
+          <div className="flex">
+            <Select
+              value={value.nickname}
+              showSearch
+              placeholder="Select users"
+              notFoundContent={fetching ? <Spin size="small" /> : null}
+              showArrow={false}
+              filterOption={false}
+              onSearch={this.fetchUser(client)}
+              onChange={this.handleChange}
+              style={{ width: "100%" }}
+            >
+              {data.map(user => (
+                <Select.Option key={user.id}>{user.nickname}</Select.Option>
+              ))}
+            </Select>
+
+            <Button
+              type="primary"
+              loading={mutation.loading}
+              onClick={this.addFriend}
+              style={{ marginLeft: 14 }}
+            >
+              Add
+            </Button>
+          </div>
+        )}
+      </ApolloConsumer>
+    );
+  }
+}
 
 export default Form.create()(FriendAddForm);

@@ -12,3 +12,7 @@ body {
 .clickable {
   cursor: pointer;
 }
+
+.flex {
+  display: flex;
+}

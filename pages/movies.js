@@ -1,14 +1,19 @@
 import { Layout, Tabs } from "antd";
 import { withRouter } from "next/router";
+import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
-import UserMoviesQuery from "../components/movies/UserMoviesQuery";
 import MovieList from "../components/movies/MovieList";
+import MovieSearch from "../components/movies/MovieSearch";
+import UserMoviesQuery from "../components/movies/UserMoviesQuery";
 
 const MoviesPage = () => (
   <Layout>
     <Header />
     <Layout.Content style={{ padding: "0 50px" }}>
       <h1 style={{ textAlign: "center", margin: 34 }}>Movies</h1>
+      <div style={{ marginBottom: 24 }}>
+        <MovieSearch />
+      </div>
       <UserMoviesQuery>
         {({ movies, loading }) => (
           <Tabs type="card" className="movies-tabs">
@@ -22,6 +27,7 @@ const MoviesPage = () => (
         )}
       </UserMoviesQuery>
     </Layout.Content>
+    <Footer />
     <style global jsx>{`
       .movies-tabs > .ant-tabs-content {
         min-height: 120px;

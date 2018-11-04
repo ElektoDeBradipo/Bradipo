@@ -18,14 +18,16 @@ export const USER_MOVIES = gql`
 `;
 
 const UserMoviesQuery = ({ watched, watchlisted, children }) => (
-  <Query query={USER_MOVIES} variables={{ watched, watchlisted }}>
+  <Query
+    query={USER_MOVIES}
+    variables={{ watched, watchlisted }}
+    fetchPolicy="cache-and-network"
+  >
     {({ data, loading, error }) =>
-      React.Children.map(children, child =>
-        React.cloneElement(child, {
-          movies: !error && !loading ? data.me.movies : [],
-          loading
-        })
-      )
+      children({
+        movies: !error && !loading ? data.me.movies : [],
+        loading
+      })
     }
   </Query>
 );

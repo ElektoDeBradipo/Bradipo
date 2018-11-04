@@ -9,18 +9,18 @@ const MoviesPage = () => (
     <Header />
     <Layout.Content style={{ padding: "0 50px" }}>
       <h1 style={{ textAlign: "center", margin: 34 }}>Movies</h1>
-      <Tabs type="card" className="movies-tabs">
-        <Tabs.TabPane tab="Watchlisted" key="1">
-          <UserMoviesQuery watchlisted={true}>
-            <MovieList />
-          </UserMoviesQuery>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="Watched" key="2">
-          <UserMoviesQuery watched={true}>
-            <MovieList />
-          </UserMoviesQuery>
-        </Tabs.TabPane>
-      </Tabs>
+      <UserMoviesQuery>
+        {({ movies, loading }) => (
+          <Tabs type="card" className="movies-tabs">
+            <Tabs.TabPane tab="Watchlisted" key="1">
+              <MovieList movies={movies.filter(x => x.watchlisted)} />
+            </Tabs.TabPane>
+            <Tabs.TabPane tab="Watched" key="2">
+              <MovieList movies={movies.filter(x => x.watched)} />
+            </Tabs.TabPane>
+          </Tabs>
+        )}
+      </UserMoviesQuery>
     </Layout.Content>
     <style global jsx>{`
       .movies-tabs > .ant-tabs-content {

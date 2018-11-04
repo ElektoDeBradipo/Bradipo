@@ -11,6 +11,10 @@ const navItems = [
   {
     label: "Rooms",
     route: "/rooms"
+  },
+  {
+    label: "My movies",
+    route: "/movies"
   }
 ];
 
